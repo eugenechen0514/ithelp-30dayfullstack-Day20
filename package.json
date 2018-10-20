@@ -6,7 +6,9 @@
   "scripts": {
     "start": "PORT=3001 node ./bin/www",
     "startdb": "docker run --name mongo4 -v $(pwd)/data:/data/db -d -p 27017:27017 --rm mongo:4.1",
-    "stopdb": "docker stop mongo4"
+    "stopdb": "docker stop mongo4",
+    "test": "jest",
+    "jest-version": "jest --version"
   },
   "dependencies": {
     "awilix": "^4.0.0",
@@ -20,5 +22,8 @@
     "mongodb": "^3.1.8",
     "mongoose": "^5.3.3",
     "morgan": "~1.9.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
   }
 }

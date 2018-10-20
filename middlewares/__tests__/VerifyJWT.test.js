@@ -19,6 +19,18 @@ describe('VerifyJWT', () => {
         middleware(res, null, (error) => {
             done(error); // 告訴 Jest 此測試結束。若 error 為空 (即 next()) , 測試通過，若　error 非空(即 next(error))，測試失敗。
         });
+    });
+
+    test('當 request 的 cookie token 值為無效，就會換下一個 error-handling middleware', (done) => {
+        const invalidJWT = 'invalidJWT.invalidJWT.invalidJWT';
+        const middleware = VerifyJWT();
+
+        const res = {};
+        _.set(res, 'cookies.token', invalidJWT); // 用 lodash 的　set() 設定值，相當於 const res = {cookie: {token: validJWT}}
+        
+        middleware(res, null, (error) => {
+            expect(error).toBeInstanceOf(Error); // error 非空(即 next(error)), 測試通過
+            done(); // 告訴 Jest 此測試結束
         });
     });
 });
